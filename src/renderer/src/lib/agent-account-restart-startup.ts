@@ -103,7 +103,10 @@ export function resolveAgentAccountRestartResumeStartup(
     // Both restart executors spawn in the tab's start folder.
     launchCwd:
       state.tabsByWorktree[args.worktreeId]?.find((tab) => tab.id === args.tabId)?.startupCwd ??
-      state.getKnownWorktreeById(args.worktreeId)?.path
+      state.getKnownWorktreeById(
+        args.worktreeId,
+        getExecutionHostIdForWorktree(state, args.worktreeId)
+      )?.path
   })
   if (!startupPlan) {
     return null
@@ -158,9 +161,9 @@ function resolveAccountRestartLaunchTarget(
   args: AccountRestartTarget,
   projectRuntime: ProjectExecutionRuntimeResolution | undefined
 ): AgentResumeLaunchTarget {
-  const worktree = state.getKnownWorktreeById(args.worktreeId)
-  const repo = worktree ? state.repos.find((entry) => entry.id === worktree.repoId) : null
   const executionHostId = getExecutionHostIdForWorktree(state, args.worktreeId)
+  const worktree = state.getKnownWorktreeById(args.worktreeId, executionHostId)
+  const repo = worktree ? state.repos.find((entry) => entry.id === worktree.repoId) : null
   return resolveAgentResumeLaunchTarget({
     projectRuntime,
     connectionId: repo?.connectionId,

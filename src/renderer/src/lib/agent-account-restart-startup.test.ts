@@ -10,7 +10,11 @@ import {
   type ProjectExecutionRuntimeResolution
 } from '../../../shared/project-execution-runtime'
 import type * as localPreflightContext from '@/lib/local-preflight-context'
-import { makeTerminalTab } from '@/store/slices/worktrees-slice-test-fixtures'
+import {
+  makeTerminalTab,
+  makeWorktree,
+  TEST_REPO
+} from '@/store/slices/worktrees-slice-test-fixtures'
 import {
   buildPaneAccountRestartStartup,
   resolveAgentAccountRestartResumeStartup,
@@ -287,6 +291,51 @@ describe('buildPaneAccountRestartStartup for Claude', () => {
     expect(buildPaneAccountRestartStartup('claude', pane)?.command).toBe(
       `cd '/repo/pkg' && claude '--resume' '${SESSION_ID}'`
     )
+  })
+
+  it.each([
+    ['workspace folder', undefined, "cd '/recorded/session' && "],
+    ['saved tab folder', '/recorded/session', '']
+  ] as const)('uses the selected host and respects the %s on resume', (_, startupCwd, prefix) => {
+    const original = useAppStore.getState()
+    try {
+      seedAgentStatus({
+        agentType: 'claude',
+        state: 'done',
+        providerSession: { key: 'session_id', id: SESSION_ID, cwd: '/recorded/session' }
+      })
+      useAppStore.setState({
+        repos: [TEST_REPO],
+        worktreesByRepo: {
+          [TEST_REPO.id]: [
+            makeWorktree({
+              id: WORKTREE_ID,
+              repoId: TEST_REPO.id,
+              path: '/recorded/session',
+              hostId: 'local'
+            }),
+            makeWorktree({
+              id: WORKTREE_ID,
+              repoId: TEST_REPO.id,
+              path: '/remote/workspace',
+              hostId: 'runtime:remote-host'
+            })
+          ]
+        },
+        detectedWorktreesByRepo: {},
+        activeWorktreeId: WORKTREE_ID,
+        activeWorkspaceExecutionHostId: 'runtime:remote-host',
+        tabsByWorktree: {
+          [WORKTREE_ID]: [makeTerminalTab({ id: TAB_ID, worktreeId: WORKTREE_ID, startupCwd })]
+        }
+      })
+
+      expect(buildPaneAccountRestartStartup('claude', pane)?.command).toBe(
+        `${prefix}claude '--resume' '${SESSION_ID}'`
+      )
+    } finally {
+      useAppStore.setState(original)
+    }
   })
 
   it('reports no resume when the Claude pane has no session id', () => {
