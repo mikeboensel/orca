@@ -102,7 +102,34 @@ const devChannelRepo = isHourlyChannel
     : isAdhocChannel
       ? 'orca-adhoc'
       : null
-const appId = 'com.stablyai.orca'
+// ORCA_PACKAGED_APP_IDENTITY: 'upstream' (default) packages as Orca; 'fork' gets its own bundle id, userData,
+// Keychain key and daemons so the build runs beside an installed Orca instead of taking over its profile.
+const PACKAGED_APP_IDENTITIES = {
+  upstream: { appId: 'com.stablyai.orca', productName: 'Orca', packageMetadata: null },
+  fork: {
+    appId: 'com.mikeboensel.orca',
+    productName: 'Orca Fork',
+    // Electron derives userData from the packaged package.json name, so the bundle id alone shares Orca's profile.
+    packageMetadata: { name: 'orca-fork', productName: 'Orca Fork' }
+  }
+}
+const packagedAppIdentityKey = process.env.ORCA_PACKAGED_APP_IDENTITY || 'upstream'
+const packagedAppIdentity = PACKAGED_APP_IDENTITIES[packagedAppIdentityKey]
+if (!packagedAppIdentity) {
+  throw new Error(
+    `Unknown ORCA_PACKAGED_APP_IDENTITY ${packagedAppIdentityKey}; expected one of ${Object.keys(PACKAGED_APP_IDENTITIES).join(', ')}`
+  )
+}
+// Release channels sign with Orca's team and publish to Orca's feeds, which a fork identity must never reach.
+if (
+  packagedAppIdentityKey !== 'upstream' &&
+  (isMacRelease || isWinDevChannel || isLinuxArm64Release)
+) {
+  throw new Error(
+    `ORCA_PACKAGED_APP_IDENTITY=${packagedAppIdentityKey} is only valid for local builds`
+  )
+}
+const appId = packagedAppIdentity.appId
 const featureWallResources = {
   from: 'resources/onboarding/feature-wall',
   to: 'onboarding/feature-wall'
@@ -223,17 +250,24 @@ const macUsageDescriptions = {
 // Developer ID team that signs every release-channel mac build.
 const ORCA_MAC_TEAM_ID = '6CX3WHS9HZ'
 
+const packagedExtraMetadata = {
+  ...packagedAppIdentity.packageMetadata,
+  ...(devChannelBuildVersion
+    ? { version: devChannelBuildVersion }
+    : localBuildVersion
+      ? { version: localBuildVersion }
+      : {})
+}
+
 /** @type {import('electron-builder').Configuration} */
 module.exports = {
   appId,
-  productName: 'Orca',
+  productName: packagedAppIdentity.productName,
   protocols: [{ name: 'Orca', schemes: ['orca'] }],
   toolsets: { appimage: '1.0.3' },
-  ...(devChannelBuildVersion
-    ? { extraMetadata: { version: devChannelBuildVersion } }
-    : localBuildVersion
-      ? { extraMetadata: { version: localBuildVersion } }
-      : {}),
+  ...(Object.keys(packagedExtraMetadata).length > 0
+    ? { extraMetadata: packagedExtraMetadata }
+    : {}),
   directories: {
     buildResources: 'resources/build'
   },
