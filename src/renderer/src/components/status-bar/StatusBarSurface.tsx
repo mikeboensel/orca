@@ -36,6 +36,7 @@ import {
 import { useStatusBarController } from './use-status-bar-controller'
 import { isOwnerNotSetUpPlaceholder } from './owner-usage-rate-limits'
 import { StatusBarVisibilityMenu } from './StatusBarVisibilityMenu'
+import { ActiveTabSummarySegment } from './ActiveTabSummarySegment'
 import { isPairedWebClientWindow } from '@/lib/desktop-window-chrome'
 
 const PetStatusSegment = lazyWithRetry(() =>
@@ -282,6 +283,8 @@ export function StatusBarSurface({
             </Tooltip>
           )}
         </div>
+        {/* Why: outside usageRef so density ignores it; it fills leftover space and truncates first. */}
+        <ActiveTabSummarySegment />
       </div>
 
       {/* Why: attention segments never clip; below the tightest density they scroll rather than vanish. */}
