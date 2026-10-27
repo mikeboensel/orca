@@ -203,6 +203,7 @@ describe('buildPaneAccountRestartStartup for Claude', () => {
   beforeEach(() => {
     seedAgentStatus(null)
     projectRuntimeContext = undefined
+    useAppStore.setState({ tabsByWorktree: {}, worktreesByRepo: {} })
   })
 
   it('resumes the pane’s Claude session with the launch marks the spawn needs', () => {
