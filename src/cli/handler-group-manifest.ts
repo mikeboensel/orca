@@ -1,6 +1,7 @@
 import type { CommandHandler } from './dispatch'
 import { BROWSER_HANDLER_GROUPS } from './browser-handler-groups'
 import { JIRA_HANDLER_GROUP } from './jira-handler-group'
+import { AGENT_MEMORY_HANDLER_GROUP } from './agent-memory-handler-group'
 import { LINEAR_HANDLER_GROUP } from './linear-handler-group'
 import { REFERENCE_HANDLER_GROUP } from './reference-handler-group'
 
@@ -283,6 +284,7 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
     keys: ['skills list', 'skills get', 'skills install', 'skills update'],
     load: async () => (await import('./handlers/skills.js')).SKILL_HANDLERS
   },
+  AGENT_MEMORY_HANDLER_GROUP,
   {
     name: 'search',
     keys: ['search'],

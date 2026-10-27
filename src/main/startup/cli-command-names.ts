@@ -3,6 +3,7 @@ export const CLI_COMMAND_NAMES = [
   'account',
   'agent',
   'agent-context',
+  'agent-memory',
   'agent-teams-tmux',
   'artifacts',
   'automations',

@@ -20,6 +20,7 @@ import {
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
 import { translate } from '@/i18n/i18n'
 import { AgentSessionHistoryIcon } from './agent-session-history-icon'
+import { useAgentMemoryActivityItem } from './agent-memory/use-agent-memory-activity-item'
 import type { ActivityBarItem } from './activity-bar-buttons'
 
 export type RightSidebarActivityItems = {
@@ -48,6 +49,7 @@ export function useRightSidebarActivityItems({
   const activeWorkspaceScope = parseWorkspaceKey(activeWorktreeId ?? '')
   const isFolderWorkspace = activeWorkspaceScope?.type === 'folder'
   const isFolder = isFolderWorkspace || (activeRepo ? isFolderRepo(activeRepo) : false)
+  const memoryActivityItem = useAgentMemoryActivityItem(activeRepo ?? null)
   // Why the owner: a managed server's workspace names its server, not an SSH connection.
   const hasSshHost = useAppStore((s) =>
     portsPanelReachesSshHost(
@@ -107,6 +109,7 @@ export function useRightSidebarActivityItems({
         shortcut: sourceControlShortcut === 'Unassigned' ? '' : sourceControlShortcut,
         gitOnly: true
       },
+      ...(memoryActivityItem ? [memoryActivityItem] : []),
       {
         id: 'checks',
         icon: ListChecks,
@@ -127,6 +130,7 @@ export function useRightSidebarActivityItems({
     [
       checksShortcut,
       explorerShortcut,
+      memoryActivityItem,
       pluginPanelErrors,
       visiblePluginPanels,
       portsShortcut,

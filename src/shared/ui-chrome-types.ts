@@ -98,6 +98,7 @@ export type RightSidebarTab =
   | 'workspaces'
   | 'pr-checks'
   | 'source-control'
+  | 'memory'
   | 'checks'
   | 'ports'
   // Plugin IDs encode their dynamic panel namespace without opening the static tab union.
