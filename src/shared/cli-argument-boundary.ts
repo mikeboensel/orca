@@ -20,6 +20,7 @@ export const CLI_BOOLEAN_FLAGS = new Set([
   'force',
   'fresh',
   'full',
+  'global',
   'help',
   'highlight',
   'inject',
@@ -57,6 +58,7 @@ export const CLI_BOOLEAN_FLAGS = new Set([
   'tasks',
   'text-stdin',
   'unread',
+  'unreviewed',
   'value-stdin',
   'wait',
   'yes'

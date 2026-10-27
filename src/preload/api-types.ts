@@ -7,6 +7,7 @@ import type {
   MinimaxCredentialsApi,
   ZcodePlanCredentialsApi
 } from './api/agent-account-api'
+import type { AgentMemoryApi } from '../shared/agent-memory/agent-memory-ipc-types'
 import type { HooksApi } from './api/agent-hook-api'
 import type { SkillsApi } from './api/agent-skill-api'
 import type { AgentAwakeApi, AgentStatusApi } from './api/agent-status-api'
@@ -110,6 +111,7 @@ export type PreloadApi = {
   claudeAccounts: ClaudeAccountsApi
   cli: CliApi
   codexConfigSync: CodexConfigSyncApi
+  agentMemory: AgentMemoryApi
   preflight: PreflightApi
   notifications: NotificationsApi
   onboarding: OnboardingApi

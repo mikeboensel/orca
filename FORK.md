@@ -20,6 +20,7 @@ Daily, or before any fork build:
 
 ## Keeping changes cheap to carry
 
+- Fork CLI command groups go in `src/cli/fork-handler-groups.ts`; `handler-group-manifest.ts` carries one import and one `...FORK_HANDLER_GROUPS` line (it sits at its 300-line lint limit).
 - New code goes in new files; edits to upstream files stay at one import, one call, or one registry line.
 - Prefer an Orca plugin (`src/shared/plugins/`) when the plugin API covers the feature: plugin code never conflicts.
 - Changes stay fork-only: no upstream PRs or issues. If upstream ships an equivalent, drop the fork copy and its entry.
@@ -53,7 +54,7 @@ Each entry: what it does, upstream status, the upstream files it hooks into, and
 
 - What: agents list, read and set app settings with types and valid values; the running app applies writes live through the same path as the Settings screen.
 - Upstream: fork-only.
-- Seams: `src/main/ipc/settings.ts` (handler body moved to `global-settings-update-from-client.ts`, one call left), one registration line each in `rpc/methods/index.ts`, `cli/specs/index.ts`, `cli/handler-group-manifest.ts`, `main/startup/cli-command-names.ts`; regenerated `rpc-params-catalog.generated.ts`, `bundled-skill-guides.ts`.
+- Seams: `src/main/ipc/settings.ts` (handler body moved to `global-settings-update-from-client.ts`, one call left), one registration line each in `rpc/methods/index.ts`, `cli/specs/index.ts`, `main/startup/cli-command-names.ts`; CLI group listed in `src/cli/fork-handler-groups.ts`; regenerated `rpc-params-catalog.generated.ts`, `bundled-skill-guides.ts`.
 - Conflict notes: upstream edits to the `settings:set` body land in `global-settings-update-from-client.ts`; a new closed-set setting fails `tc` until its members are added to the enum-values table.
 - Branch: `mike/settings-cli`.
 
@@ -62,7 +63,7 @@ Each entry: what it does, upstream status, the upstream files it hooks into, and
 - What: per-workspace Memory panel and `orca agent-memory` CLI over each agent's own memory files, with review state, staleness checks and link-based sharing.
 - Upstream: fork-only, in core. A plugin port waits until upstream's plugin API gains panel-to-worker messaging, CLI access to plugin commands, a tab badge and a repo/worktree read.
 - Seams (one-line hooks; logic lives in `src/main/agent-memory/`, `src/shared/agent-memory/`, `right-sidebar/agent-memory/`):
-  - CLI: `handler-group-manifest.ts`, `cli/specs/index.ts`, `cli-command-names.ts`, `cli-argument-boundary.ts` (`global`, `unreviewed` flags).
+  - CLI: group listed in `src/cli/fork-handler-groups.ts`; `cli/specs/index.ts`, `cli-command-names.ts`, `cli-argument-boundary.ts` (`global`, `unreviewed` flags).
   - Main/preload: `attach-main-window-services.ts` (+ its test mock), `preload/index.ts`, `preload/api-types.ts`.
   - `'memory'` tab id: `ui-chrome-types.ts`, `client-ui-params.ts`, `ui-selection-normalization.ts`, `right-sidebar-route.ts`.
   - Tab: `right-sidebar-panel-content.tsx`, `use-right-sidebar-activity-items.ts`.

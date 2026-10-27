@@ -198,6 +198,7 @@ describe('Electron Vite output contract', () => {
       'persistence/profile-state/profile-state-recovery-command',
       'persistence/profile-state/profile-state-storage-classification',
       'skills/bundled-skill-install/cli-entry',
+      'agent-memory/agent-memory-cli-entry',
       'startup/http1-compatibility-marker'
     ]) {
       expect(input[name]).toBe(nodePath.resolve('src', 'main', `${name}.ts`))

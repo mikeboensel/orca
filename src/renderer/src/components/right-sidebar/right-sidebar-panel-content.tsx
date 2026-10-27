@@ -5,6 +5,7 @@ import { isPluginPanelTabKey } from '../../../../shared/plugins/plugin-manifest'
 
 const FileExplorer = lazy(() => import('./FileExplorer'))
 const SourceControl = lazy(() => import('./SourceControl'))
+const AgentMemoryPanel = lazy(() => import('./AgentMemoryPanel'))
 const ChecksPanel = lazy(() => import('./ChecksPanel'))
 const PortsPanel = lazy(() => import('./PortsPanel'))
 const AiVaultSidebarPanel = lazy(() => import('./AiVaultSidebarPanel'))
@@ -26,6 +27,7 @@ export function RightSidebarPanelContent({
       <Suspense fallback={null}>
         {effectiveTab === 'explorer' && <FileExplorer />}
         {effectiveTab === 'source-control' && <SourceControl />}
+        {effectiveTab === 'memory' && <AgentMemoryPanel />}
         {effectiveTab === 'checks' && <ChecksPanel />}
         {/* SSH forwarding needs raw ports.detect data absent from the workspace-scoped status popover. */}
         {effectiveTab === 'ports' && (

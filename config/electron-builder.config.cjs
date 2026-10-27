@@ -369,6 +369,7 @@ module.exports = {
     'out/main/orca-profiles/profile-index-store.js',
     'out/main/persistence/profile-state/**',
     'out/main/skills/bundled-skill-install/cli-entry.js',
+    'out/main/agent-memory/agent-memory-cli-entry.js',
     'out/main/startup/http1-compatibility-marker.js',
     'out/main/daemon-entry.js',
     'out/main/session-scanner-service-entry.js',

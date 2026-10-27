@@ -122,6 +122,7 @@ vi.mock('../ipc/pty/pty-management', () => ({
 vi.mock('../ipc/workspace-cleanup', () => ({
   registerWorkspaceCleanupHandlers: registerWorkspaceCleanupHandlersMock
 }))
+vi.mock('../ipc/agent-memory', () => ({ registerAgentMemoryHandlers: vi.fn() }))
 vi.mock('../ipc/folder-repo-git-upgrade', () => ({
   startFolderRepoGitUpgradeWatch: startFolderRepoGitUpgradeWatchMock
 }))

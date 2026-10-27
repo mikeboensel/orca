@@ -21747,5 +21747,115 @@
     "ok": "OK",
     "unavailableMessage": "Orca can't stop every terminal session right now.",
     "unavailableDetail": "Nothing was stopped. Try again once your terminals have opened. If a terminal says it was opened in a newer version of Orca, reopen it first. If your terminals are already open, quit and reopen Orca, then try again."
+  },
+  "agentMemory": {
+    "panel": {
+      "queued": "{{value0}} file change(s) waiting",
+      "reviewQueued": "Review and apply",
+      "allReviewed": "Nothing left to review here.",
+      "showSkipped": "Show skipped",
+      "scope": "Memory scope",
+      "workspace": "This workspace",
+      "global": "Global",
+      "mode": "View",
+      "cards": "Cards",
+      "list": "List",
+      "refresh": "Refresh",
+      "summary": "{{value0}} memories · {{value1}} unreviewed",
+      "baseRef": "repo files from {{value0}}",
+      "undone": "Restored {{value0}} file(s)",
+      "tabTitle": "Memory",
+      "tabTitleWithCount": "Memory ({{value0}} unreviewed)"
+    },
+    "preview": {
+      "ownerOrca": "Orca shared file",
+      "ownerSource": "Agent memory",
+      "ownerLinkBlock": "Orca block in agent file",
+      "move": "Move to {{value0}}",
+      "delete": "Delete",
+      "create": "Create",
+      "write": "Rewrite",
+      "title": "Apply {{value0}} memory decision(s)?",
+      "recordOnly": "Only the review record changes: {{value0}}.",
+      "description": "These files change exactly as listed. Undo restores them while nothing else edits them.",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    },
+    "list": {
+      "filterAll": "All",
+      "filterUnreviewed": "Unreviewed",
+      "filterReviewed": "Reviewed",
+      "search": "Search memories",
+      "anyType": "Any type",
+      "anyAgent": "Any agent",
+      "anySuggestion": "Any suggestion",
+      "selected": "{{value0}} selected",
+      "selectAll": "Select all",
+      "memory": "Memory",
+      "sharing": "Sharing",
+      "noMatches": "No memories match these filters.",
+      "suggested": "suggests {{value0}}"
+    },
+    "card": {
+      "seenIn": "seen in {{value0}} worktrees",
+      "label": "Memory review card: {{value0}}",
+      "remaining": "{{value0}} left",
+      "size": "{{value0}} B",
+      "suggestion": "Suggested: {{value0}}",
+      "suggestedBy": "by {{value0}}",
+      "mergeInto": "Merge into",
+      "cancel": "Cancel",
+      "saveEdit": "Save to source file",
+      "skip": "Skip",
+      "undo": "Undo"
+    },
+    "expiry": {
+      "label": "Re-review project memories",
+      "off": "Never",
+      "days": "After {{value0}} days"
+    },
+    "agent": {
+      "claude": "Claude",
+      "codex": "Codex",
+      "gemini": "Gemini",
+      "opencode": "OpenCode",
+      "pi": "Pi"
+    },
+    "type": {
+      "user": "User",
+      "feedback": "Feedback",
+      "project": "Project",
+      "reference": "Reference",
+      "instruction": "Instruction"
+    },
+    "decision": {
+      "keep": "Keep",
+      "share": "Share",
+      "archive": "Archive",
+      "merge": "Merge",
+      "edit": "Edit",
+      "delete": "Delete",
+      "needsReview": "Needs review"
+    },
+    "reason": {
+      "noRecord": "Never reviewed",
+      "contentChanged": "Changed since review",
+      "prMerged": "Names a merged PR",
+      "prClosed": "Names a closed PR",
+      "pathMissing": "Names a file gone from main",
+      "reviewExpired": "Review is old"
+    },
+    "share": {
+      "native": "Written by this agent",
+      "shared": "Shared",
+      "notShared": "Not shared",
+      "unavailable": "Sharing not supported yet",
+      "paused": "Sharing paused: changed since it was shared; review it to share again"
+    },
+    "age": {
+      "onMain": "on main",
+      "today": "today",
+      "days": "{{value0}}d ago"
+    }
   }
 }
