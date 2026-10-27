@@ -339,6 +339,11 @@ import {
   WorkItemsList as WorkItemsListOfGitlabParams
 } from './gitlab-params'
 import {
+  GlobalSettingsCliGetParams,
+  GlobalSettingsCliListParams,
+  GlobalSettingsCliSetParams
+} from './global-settings-cli-params'
+import {
   HostedReviewCreate,
   HostedReviewCreationEligibility,
   HostedReviewForBranch
@@ -555,6 +560,7 @@ import {
   SshTargetUpdate
 } from './ssh-params'
 import { ContinueInterruptedParams } from './structured-agent-session-continue-params'
+import { ContinuationContextParams } from './structured-agent-session-identifiers'
 import {
   AcknowledgeAttentionParams,
   AgentsParams,
@@ -733,6 +739,7 @@ export const RPC_PARAMS_BY_METHOD = {
   'agentSession.cancel': CancelParams,
   'agentSession.close': OptionsParams,
   'agentSession.commands': OptionsParams,
+  'agentSession.continuationContext': ContinuationContextParams,
   'agentSession.continueInterrupted': ContinueInterruptedParams,
   'agentSession.conversationCommand': ConversationCommandParams,
   'agentSession.conversationOutline': OptionsParams,
@@ -1329,9 +1336,12 @@ export const RPC_PARAMS_BY_METHOD = {
   'session.tabs.updatePaneLayout': UpdatePaneLayout,
   'settings.get': null,
   'settings.getAgentLaunch': null,
+  'settings.getGlobal': GlobalSettingsCliGetParams,
   'settings.getTerminalQuickCommands': null,
+  'settings.listGlobal': GlobalSettingsCliListParams,
   'settings.mutateAgentLaunch': AgentLaunchSettingsMutation,
   'settings.mutateNativeChatSessionOptions': NativeChatSessionOptionsMutation,
+  'settings.setGlobal': GlobalSettingsCliSetParams,
   'settings.update': SettingsUpdate,
   'settings.updatePRBotAuthorOverride': PRBotAuthorOverrideUpdate,
   'settings.updateTerminalQuickCommands': TerminalQuickCommandsUpdate,
