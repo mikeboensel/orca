@@ -240,6 +240,7 @@ import {
   FolderWorkspaceSelector,
   FolderWorkspaceUpdate
 } from './folder-workspace-params'
+import { GazeResolveParams } from './gaze-params'
 import {
   GitBranchCompare,
   GitBranchDiff,
@@ -976,6 +977,8 @@ export const RPC_PARAMS_BY_METHOD = {
   'folderWorkspace.getPathStatus': FolderWorkspacePathStatus,
   'folderWorkspace.list': null,
   'folderWorkspace.update': FolderWorkspaceUpdate,
+  'gaze.clear': null,
+  'gaze.resolve': GazeResolveParams,
   'git.abortMerge': WorktreeSelectorOfGitParams,
   'git.abortRebase': WorktreeSelectorOfGitParams,
   'git.branchCompare': GitBranchCompare,

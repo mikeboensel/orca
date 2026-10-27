@@ -8,6 +8,7 @@ import type {
   JiraSavedFilterMutation
 } from '../../shared/jira/jira-saved-filters'
 import type { MarkdownDocument } from '../../shared/filesystem-entry-types'
+import type { GazePaneQuery, GazePaneReply } from '../../shared/gaze-pane-contract'
 import type { PersistedUIState } from '../../shared/persisted-ui-state-types'
 import type { TuiAgent } from '../../shared/tui-agent'
 import type {
@@ -69,6 +70,8 @@ import type {
 export type CloseActiveTabPayload = { sourceId: string }
 
 export type UiCommandEventApi = {
+  onGazePaneQuery?: (callback: (query: GazePaneQuery) => void) => () => void
+  replyGazePaneQuery?: (reply: GazePaneReply) => void
   getJiraQuickFilters?: () => Promise<JiraQuickFilterState>
   setJiraQuickFilters?: (state: JiraQuickFilterState) => Promise<JiraQuickFilterState>
   getJiraSavedFilters?: () => Promise<JiraSavedFilterState>

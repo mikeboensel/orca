@@ -121,6 +121,11 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
     ],
     load: async () => (await import('./handlers/terminal.js')).TERMINAL_HANDLERS
   },
+  {
+    name: 'gaze',
+    keys: ['gaze resolve', 'gaze clear', 'gaze follow'],
+    load: async () => (await import('./handlers/gaze.js')).GAZE_HANDLERS
+  },
   ...BROWSER_HANDLER_GROUPS,
   {
     name: 'orchestration',

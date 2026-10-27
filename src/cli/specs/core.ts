@@ -166,6 +166,32 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     ]
   },
   {
+    path: ['gaze', 'resolve'],
+    summary: 'Map a desktop point to the Orca pane under it',
+    usage: 'orca gaze resolve --x <points> --y <points> [--highlight|--debug] [--json]',
+    allowedFlags: [...GLOBAL_FLAGS, 'x', 'y', 'highlight', 'debug'],
+    notes: [
+      'Coordinates are desktop logical points with a top-left origin. --highlight draws a transient pane outline.'
+    ],
+    examples: ['orca gaze resolve --x 900 --y 500 --json']
+  },
+  {
+    path: ['gaze', 'clear'],
+    summary: 'Clear the gaze pane outline',
+    usage: 'orca gaze clear [--json]',
+    allowedFlags: [...GLOBAL_FLAGS]
+  },
+  {
+    path: ['gaze', 'follow'],
+    summary: 'Follow Gaze Probe and outline the Orca pane under gaze',
+    usage: 'orca gaze follow [--debug] [--json]',
+    allowedFlags: [...GLOBAL_FLAGS, 'debug'],
+    notes: [
+      'Reads http://127.0.0.1:48765/events, outputs pane changes, and clears the outline when gaze is unavailable or the command stops.'
+    ],
+    examples: ['orca gaze follow --json']
+  },
+  {
     path: ['terminal', 'show'],
     summary: 'Show terminal metadata and preview',
     usage: 'orca terminal show [--terminal <handle>] [--json]',

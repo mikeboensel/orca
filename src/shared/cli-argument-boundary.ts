@@ -21,6 +21,7 @@ export const CLI_BOOLEAN_FLAGS = new Set([
   'fresh',
   'full',
   'help',
+  'highlight',
   'inject',
   'include-archived',
   'include-remote',

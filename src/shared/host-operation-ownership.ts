@@ -29,6 +29,7 @@ export const HOST_OPERATION_OWNERSHIP = {
   emulator: 'host',
   files: 'host',
   folderWorkspace: 'host',
+  gaze: 'host',
   git: 'host',
   github: 'credential',
   gitlab: 'credential',
