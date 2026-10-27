@@ -8,6 +8,7 @@ import {
 import { getExecutionHostIdForWorktree } from '@/lib/worktree-runtime-owner'
 import { runtimeEnvironmentIdUnlessTwin } from '@/lib/resolve-owner'
 import { getLocalProjectExecutionRuntimeContext } from '@/lib/local-preflight-context'
+import { findRepoForHost } from '@/store/slices/repo-host-identity'
 import { makePaneKey } from '../../../shared/stable-pane-id'
 import { normalizeAgentProviderSession } from '../../../shared/agent-session-resume'
 import {
@@ -163,7 +164,9 @@ function resolveAccountRestartLaunchTarget(
 ): AgentResumeLaunchTarget {
   const executionHostId = getExecutionHostIdForWorktree(state, args.worktreeId)
   const worktree = state.getKnownWorktreeById(args.worktreeId, executionHostId)
-  const repo = worktree ? state.repos.find((entry) => entry.id === worktree.repoId) : null
+  const repo = worktree
+    ? findRepoForHost(state.repos, worktree.repoId, { hostId: executionHostId })
+    : null
   return resolveAgentResumeLaunchTarget({
     projectRuntime,
     connectionId: repo?.connectionId,

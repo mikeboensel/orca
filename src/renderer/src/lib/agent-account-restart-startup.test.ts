@@ -10,6 +10,7 @@ import {
   type ProjectExecutionRuntimeResolution
 } from '../../../shared/project-execution-runtime'
 import type * as localPreflightContext from '@/lib/local-preflight-context'
+import { resolveAgentResumeLaunchTarget } from '@/lib/agent-resume-launch-target'
 import {
   makeTerminalTab,
   makeWorktree,
@@ -22,6 +23,8 @@ import {
 } from './agent-account-restart-startup'
 
 let projectRuntimeContext: ProjectExecutionRuntimeResolution | undefined
+
+vi.mock('@/lib/agent-resume-launch-target', { spy: true })
 
 vi.mock('@/lib/local-preflight-context', async (importOriginal) => ({
   ...(await importOriginal<typeof localPreflightContext>()),
@@ -305,7 +308,10 @@ describe('buildPaneAccountRestartStartup for Claude', () => {
         providerSession: { key: 'session_id', id: SESSION_ID, cwd: '/recorded/session' }
       })
       useAppStore.setState({
-        repos: [TEST_REPO],
+        repos: [
+          TEST_REPO,
+          { ...TEST_REPO, executionHostId: 'runtime:remote-host', connectionId: 'selected-ssh' }
+        ],
         worktreesByRepo: {
           [TEST_REPO.id]: [
             makeWorktree({
@@ -332,6 +338,12 @@ describe('buildPaneAccountRestartStartup for Claude', () => {
 
       expect(buildPaneAccountRestartStartup('claude', pane)?.command).toBe(
         `${prefix}claude '--resume' '${SESSION_ID}'`
+      )
+      expect(resolveAgentResumeLaunchTarget).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          executionHostId: 'runtime:remote-host',
+          connectionId: 'selected-ssh'
+        })
       )
     } finally {
       useAppStore.setState(original)
