@@ -27,6 +27,7 @@ import { ANTIGRAVITY_ACCOUNT_METHODS } from './antigravity-accounts'
 import { USAGE_CREDENTIAL_METHODS } from './usage-credentials'
 import { PREFLIGHT_METHODS } from './preflight'
 import { COMPUTER_METHODS } from './computer'
+import { GAZE_METHODS } from './gaze'
 import { SESSION_TAB_METHODS } from './session-tabs'
 import { NATIVE_CHAT_METHODS } from './native-chat'
 import { FILE_METHODS } from './files'
@@ -113,6 +114,7 @@ export const ALL_RPC_METHODS = [
   ...USAGE_CREDENTIAL_METHODS,
   ...PREFLIGHT_METHODS,
   ...COMPUTER_METHODS,
+  ...GAZE_METHODS,
   ...SESSION_TAB_METHODS,
   ...WORKSPACE_LAYOUT_METHODS,
   // Switch point: a window-owned build registers no layout command.

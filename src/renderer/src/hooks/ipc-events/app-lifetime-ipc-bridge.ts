@@ -25,6 +25,7 @@ import { registerTabLifecycleIpcBridge } from './tab-lifecycle-ipc-bridge'
 import { registerTerminalPresentationIpcBridge } from './terminal-presentation-ipc-bridge'
 import { registerPtySourceDisownedIpcBridge } from './pty-source-disowned-ipc-bridge'
 import { registerTerminalRequestIpcBridge } from './terminal-request-ipc-bridge'
+import { registerGazePaneIpcBridge } from './gaze-pane-ipc-bridge'
 import { registerAgentLaunchTabIpcBridge } from './agent-launch-tab-ipc-bridge'
 import { registerTerminalPaneRevealIpcBridge } from './terminal-pane-reveal-ipc-bridge'
 import { registerTerminalUiRoutingIpcBridge } from './terminal-ui-routing-ipc-bridge'
@@ -112,6 +113,7 @@ export function installAppLifetimeIpcEvents(): () => void {
 
   registerTerminalPresentationIpcBridge(unsubs)
   registerTerminalRequestIpcBridge(unsubs)
+  registerGazePaneIpcBridge(unsubs)
   registerAgentLaunchTabIpcBridge(unsubs)
   registerPtySourceDisownedIpcBridge(unsubs)
   registerTerminalUiRoutingIpcBridge(unsubs)
