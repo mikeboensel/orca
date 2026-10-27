@@ -338,6 +338,11 @@ import {
   WorkItemsList as WorkItemsListOfGitlabParams
 } from './gitlab-params'
 import {
+  GlobalSettingsCliGetParams,
+  GlobalSettingsCliListParams,
+  GlobalSettingsCliSetParams
+} from './global-settings-cli-params'
+import {
   HostedReviewCreate,
   HostedReviewCreationEligibility,
   HostedReviewForBranch
@@ -1328,9 +1333,12 @@ export const RPC_PARAMS_BY_METHOD = {
   'session.tabs.updatePaneLayout': UpdatePaneLayout,
   'settings.get': null,
   'settings.getAgentLaunch': null,
+  'settings.getGlobal': GlobalSettingsCliGetParams,
   'settings.getTerminalQuickCommands': null,
+  'settings.listGlobal': GlobalSettingsCliListParams,
   'settings.mutateAgentLaunch': AgentLaunchSettingsMutation,
   'settings.mutateNativeChatSessionOptions': NativeChatSessionOptionsMutation,
+  'settings.setGlobal': GlobalSettingsCliSetParams,
   'settings.update': SettingsUpdate,
   'settings.updatePRBotAuthorOverride': PRBotAuthorOverrideUpdate,
   'settings.updateTerminalQuickCommands': TerminalQuickCommandsUpdate,
